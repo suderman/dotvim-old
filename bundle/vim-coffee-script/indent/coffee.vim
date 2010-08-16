@@ -11,8 +11,7 @@ let b:did_indent = 1
 
 setlocal autoindent
 setlocal indentexpr=GetCoffeeIndent(v:lnum)
-" Make sure GetCoffeeIndent is run when these are typed so they can be nicely
-" outdented
+" Make sure GetCoffeeIndent is run when these are typed so they can be outdented
 setlocal indentkeys+=0],0),=else,=when,=catch,=finally
 
 " Only define the function once
@@ -20,30 +19,53 @@ if exists("*GetCoffeeIndent")
   finish
 endif
 
-" Outdent certain keywords, etc.
-let s:outdent = ['^else', '^when', '^catch', '^finally', '^}', '^]', '^)']
+" Join a list of regexps as branches
+function! s:RegexpJoin(regexps)
+  return join(a:regexps, '\|')
+endfunction
 
-" Indent after certain keywords, functions, etc.
-let s:indent_after = ['^if\>', '^else\>', '^for\>', '^while\>', '^switch\>',
-\                     '^when\>', '^try\>', '^catch\>', '^finally\>', '^class\>',
-\                     '[$', '{$', '($', '->$', '=>$']
+" Create a regexp group from a list of regexps
+function! s:RegexpGroup(...)
+  return '\%(' . s:RegexpJoin(a:000) . '\)'
+endfunction
+
+" Outdent certain keywords and brackets
+let s:outdent = '^'
+\             . s:RegexpGroup('else', 'when', 'catch', 'finally',
+\                             ']', '}', ')')
+
+" Indent after certain keywords
+let s:indent_after_keywords = '^'
+\                           . s:RegexpGroup('if', 'unless', 'else', 'for',
+\                                           'while', 'until', 'loop', 'switch',
+\                                           'when', 'try', 'catch', 'finally',
+\                                           'class')
+\                           . '\>'
+
+" Indent after brackets, functions, and assignments
+let s:indent_after_literals = s:RegexpGroup('\[', '{', '(', '->', '=>',
+\                                           ':', '=')
+\                           . '$'
+
+" Combine the two regexps above
+let s:indent_after = s:RegexpJoin([s:indent_after_keywords,
+\                                  s:indent_after_literals])
+
+" Indent after certain keywords used in multi-line assignments
+let s:assignment_keywords = s:RegexpGroup(':', '=')
+\                         . '\s*\<'
+\                         . s:RegexpGroup('if', 'unless', 'for', 'while',
+\                                         'until', 'switch', 'try', 'class')
+\                         . '\>'
 
 " Outdent after certain keywords
-let s:outdent_after = ['^return\>', '^break\>', '^continue\>', '^throw\>']
-" Don't outdent if the previous line contains one of these keywords (for cases
-" like 'return if a is b', 'break unless a', etc.)
-let s:dont_outdent_after = ['\<if\>', '\<unless\>']
+let s:outdent_after = '^'
+\                   . s:RegexpGroup('return', 'break', 'continue', 'throw')
+\                   . '\>'
 
-" See if a line contains any regular expression in regexps
-function! s:Search(line, regexps)
-  for regexp in a:regexps
-    if a:line =~ regexp
-      return 1
-    endif
-  endfor
-
-  return 0
-endfunction
+" Don't outdent if the line contains one of these keywords (for cases like
+" 'return if a is b', 'break unless a', etc.)
+let s:dont_outdent_after = '\<' . s:RegexpGroup('if', 'unless') . '\>'
 
 " Check for a single-line statement (e.g., 'if a then b'), which doesn't need an
 " indent afterwards
@@ -65,25 +87,36 @@ endfunction
 " previous line for the 'switch' keyword. The first 'when' shouldn't be
 " outdented
 function! s:IsFirstWhen(curline, prevline)
-  return a:curline =~ '^when\>' && a:prevline =~ '^switch\>'
+  return a:curline =~ '^when\>' && a:prevline =~ '\<switch\>'
 endfunction
 
-function! s:ShouldOutdent(prevline, curline)
+" Check for a multi-line assignment like
+" a: if b
+"   c
+" else
+"   d
+function! s:IsMultiLineAssignment(line)
+  return a:line =~ s:assignment_keywords
+endfunction
+
+function! s:ShouldOutdent(curline, prevline)
   return !s:IsSingleLineStatement(a:prevline)
   \   && !s:IsFirstWhen(a:curline, a:prevline)
-  \   && !s:Search(a:prevline, s:outdent_after)
-  \   &&  s:Search(a:curline, s:outdent)
+  \   &&  a:prevline !~ s:outdent_after
+  \   &&  a:curline =~ s:outdent
 endfunction
 
 function! s:ShouldIndentAfter(prevline)
   return !s:IsSingleLineStatement(a:prevline)
   \   && !s:IsSingleLineElse(a:prevline)
-  \   &&  s:Search(a:prevline, s:indent_after)
+  \   && (a:prevline =~ s:indent_after
+  \   ||  s:IsMultiLineAssignment(a:prevline))
 endfunction
 
 function! s:ShouldOutdentAfter(prevline)
-  return !s:Search(a:prevline, s:dont_outdent_after)
-  \   &&  s:Search(a:prevline, s:outdent_after)
+  return (a:prevline !~ s:dont_outdent_after
+  \   ||  s:IsSingleLineStatement(a:prevline))
+  \   &&  a:prevline =~ s:outdent_after
 endfunction
 
 function! GetCoffeeIndent(curlinenum)
@@ -102,8 +135,13 @@ function! GetCoffeeIndent(curlinenum)
   let curline = getline(a:curlinenum)[curindent : -1]
   let prevline = getline(prevlinenum)[previndent : -1]
 
-  if s:ShouldOutdent(prevline, curline)
-    return curindent - &shiftwidth
+  if s:ShouldOutdent(curline, prevline)
+    " Is the line already outdented?
+    if curindent < previndent
+      return curindent
+    else
+      return curindent - &shiftwidth
+    endif
   endif
 
   if s:ShouldIndentAfter(prevline)
@@ -115,5 +153,5 @@ function! GetCoffeeIndent(curlinenum)
   endif
 
   " No indenting or outdenting is needed
-  return previndent
+  return curindent
 endfunction

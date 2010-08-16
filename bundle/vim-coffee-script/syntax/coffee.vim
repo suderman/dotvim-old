@@ -1,166 +1,159 @@
-" Vim syntax file
-" Language:     CoffeeScript
-" Maintainer:   Karl Guertin <grayrest@gr.ayre.st>
-" Last Change:  April 5, 2010
-" Version:      0.6
-"
-" The javascript bits adapted from Yi Zhao's <zzlinux AT hotmail DOT com>
-" javascript.vim
-"
-" This version matches the syntax of CoffeeScript 0.6.
-"
-if !exists("main_syntax")
-  if version < 600
-    syntax clear
-  elseif exists("b:current_syntax")
-    finish
-  endif
-  let main_syntax = 'coffee'
+" Language:    CoffeeScript
+" Maintainer:  Mick Koch <kchmck@gmail.com>
+" URL:         http://github.com/kchmck/vim-coffee-script
+" License:     WTFPL
+
+if exists("b:current_syntax")
+  finish
 endif
 
-"" dollar sign is permitted anywhere in an identifier
-setlocal isident+=$
-
-"" Coffeescript uses # for comments
-setlocal commentstring=#%s
-
-syntax case match
-
-"" BEGIN ACTUAL HIGHLIGHTING
-
-syn match   jsSpecial           "\\\d\d\d\|\\x\x\{2\}\|\\u\x\{4\}\|\\." contained
-syn keyword jsPrototype         prototype
-syn match   jsNumber            /\<-\=\d\+L\=\>\|\<0[xX]\x\+\>/
-syn match   jsFloat              /\<-\=\%(\d\+\.\d\+\|\d\+\.\|\.\d\+\)\%([eE][+-]\=\d\+\)\=\>/
-syn match   jsIdentifier        "\<this\>\|\<arguments\>"
-syn keyword jsSource            import export
-syn keyword jsType              const undefined void
-syn keyword jsOperator          delete new in instanceof let typeof
-syn match   jsOperator          "[><*/+-]\@<![><*/+-][><*/+-]\@!\|[><!=+-]=\|++\|--\|||=\|&&=\|||\|&&\||\|&\|!\|%"
-syn keyword jsBoolean           true false
-syn keyword jsNull              null
-
-"" Statement Keywords
-syn keyword jsConditional       if else
-syn keyword jsDeclaration       var
-syn keyword jsRepeat            do while for in of
-syn keyword jsBranch            break continue switch case default return yield
-syn keyword jsStatement         try catch throw with finally
-
-syn keyword jsGlobalObjects     Array Boolean Date Function Infinity JavaArray
-    \                           JavaClass JavaObject JavaPackage Math Number
-    \                           NaN Object Packages RegExp String
-    \                           Undefined java netscape sun
-syn match   jsGlobalObjects     "\<exports\>"
-
-syn keyword jsExceptions        Error EvalError RangeError ReferenceError
-    \                           SyntaxError TypeError URIError
-
-syn keyword jsFutureKeys        abstract enum int short boolean export
-    \                           interface static byte extends long super char
-    \                           final native synchronized class float package
-    \                           throws const goto private transient debugger
-    \                           implements protected volatile double import
-    \                           public
-
-syn match   coffeeMaybeInterp   /\$\@<!\$@\?\K\k*/ contained contains=coffeeIdentifier
-syn region  coffeeInterp        matchgroup=coffeeInterpolationDelim start="\${" end="}" contained contains=TOP
-
-syn keyword coffeeTodo          TODO FIXME XXX TBD contained
-syn match   coffeeComment       "#.*$" display contains=coffeeTodo,@Spell
-
-
-syn region  coffeeObjLit        matchgroup=coffeeLiteral start="{" end="}" contains=TOP
-syn region  coffeeAryLit        matchgroup=coffeeLiteral start="\i\@<!\[" end="\]" contains=TOP,coffeeRange
-syn match coffeeIdentifier      "@"
-
-syn region  jsInterpolate       start=+`+  skip=+\\n+  end=+`+ keepend
-syn region  coffeeDString        start=+"+  skip=+\\n\|\\\\\|\\"+  end=+"+  contains=jsSpecial,coffeeMaybeInterp,coffeeInterp
-syn region  coffeeString        start=+'+  skip=+\\n\|\\\\\|\\'+  end=+'+  contains=jsSpecial keepend
-syn region  coffeeString        start=+"""+ end=+"""+ keepend contains=jsSpecial,@Spell
-syn region  coffeeString        start=+'''+ end=+'''+ keepend contains=jsSpecial,@Spell
-
-syn match  coffeeAssignment     /\%(@\?\I\i*\%(\(\.\|::\)\I\i*\|\[.\{-}\%(\[.\{-}\].\{-}\)*\]\)*\s*\%(:\@<!::\@!\|=\@<!==\@!\)\)/ contains=coffeeAccessOperator,coffeeArrayAccess,coffeeFunction,jsIdentifier,coffeeIdentifier,coffeeAssignmentOper,jsGlobalObjects
-syn region  coffeeArrayAccess     matchgroup=coffeeAccessOperator start="\i\zs\[" end="\]" contains=TOP
-syn region  coffeeFunctionCall    matchgroup=coffeeFnCallOperator start="\i\zs(" end=")" contains=TOP
-
-syn keyword coffeeDeclaration   class extends
-syn keyword coffeeConditional   unless when then
-syn keyword coffeeOperator      and or is isnt not
-syn match   coffeeAssignmentOper   ":\@<!::\@!\|=\@<!==\@!"
-syn match   coffeeOperator      "\%(||=\|&&=\|?=\|\i\@<=?\|:\@!:\)"
-syn match   coffeeAccessOperator /\.\|?\.\|::/
-syn match   coffeeSplat         "\.\.\."
-"This isn't with the other strings because it needs to override division
-syn region  coffeeString        start=+/\(\*\|/\|\s\)\@!+ skip=+\\\\\|\\/+ end=+/[gim]\{,3}+ contains=jsSpecial oneline
-syn match   coffeeRange         "\.\.\.\?" containedin=coffeeArrayAccess,coffeeAryLit
-
-"Cofeescript function declaration is distressingly hard to parse with regular
-"expressions, mostly because Vim (and most other languages) are built around
-"the key atom being before instead after. Initial attempts using syn region
-"and whatnot were a mess (see the note at the end of the section :help
-"syn-region). The key realization was that the arguments region only extends
-"across newlines if the line ends with a comma.
-
-" This handles the true anonymous coffeescript functions ((blah) -> blah).
-syn match  coffeeFunction       /(\%(\s*\n\)\?\%([^)]\|,\s*\n\)\{-}\%(\n\s*\)\?)\s*\%(=>\|->\)/
-syn match  coffeeFunction       /=>\|->\|<-/
-
-" The entire part before the second \%( is just to match the function name.
-" I like this because it 1) makes functions easier to spot and 2) these
-" functions are not anonymous, the highlighted part is what the js function
-" will be named.
-syn match  coffeeFunction       /\I\i*\s*\%(:\@<!:\|\i\@<==\@!<=\)\s*(\%(\s*\n\)\?\%(.\|,\s*\n\)\{-}\%(\n\s*\)\?)\s*\%(=>\|->\)/
-syn match  coffeeFunction       /\I\i*\s*\%(:\@<!:\|\i\@<==\@!<=\)\s*\%(=>\|->\)/
-
-if version >= 508 || !exists("did_javascript_syn_inits")
-  if version < 508
-    let did_javascript_syn_inits = 1
-    command -nargs=+ HiLink hi link <args>
-  else
-    command -nargs=+ HiLink hi def link <args>
-  endif
-  HiLink coffeeSimpleAssign coffeeAssignment
-  HiLink coffeeDestructure  coffeeAssignment
-  HiLink coffeeSplat        coffeeOperator
-  HiLink coffeeRange        coffeeOperator
-  HiLink coffeeAssignmentOper coffeeOperator
-  HiLink coffeeAccessOperator coffeeOperator
-  HiLink coffeeDString      coffeeString
-  HiLink jsIdentifier       coffeeIdentifier
-  HiLink jsOperator         coffeeOperator
-  HiLink jsBranch           coffeeConditional
-  HiLink jsConditional      coffeeConditional
-  HiLink jsRepeat           coffeeRepeat
-  HiLink jsDeclaration      coffeeDeclaration
-
-  HiLink coffeeComment      Comment
-  HiLink coffeeTodo         Todo
-  HiLink coffeeString       String
-  HiLink jsSpecial          Special
-  HiLink coffeeOperator     Operator
-  HiLink coffeeAccessOperator     Operator
-  HiLink coffeeConditional  Conditional
-  HiLink coffeeRepeat       Repeat
-  HiLink coffeeDeclaration  Type
-  HiLink coffeeLiteral      Structure
-  HiLink coffeeInterpolationDelim Delimiter
-  HiLink coffeeMaybeInterp  Identifier
-  HiLink coffeeFnCallOperator Type
-  HiLink jsNumber           Number
-  HiLink jsBoolean          Boolean
-  HiLink jsType             Type
-  HiLink jsNull             Type
-  HiLink jsExceptions       Exception
-  HiLink coffeeIdentifier   Keyword
-  HiLink jsGlobalObjects    Identifier
-  HiLink coffeeFunction     Function
-  HiLink coffeeAssignment   PreProc
-  HiLink jsInterpolate      Include
-  delcommand HiLink
+if version < 600
+  syntax clear
 endif
 
 let b:current_syntax = "coffee"
-if main_syntax == 'coffee'
-  unlet main_syntax
+
+syntax sync minlines=100
+
+" CoffeeScript allows dollar signs in identifiers
+setlocal isident+=$
+
+syntax match coffeeStatement /\<\%(return\|break\|continue\|throw\)\>/
+highlight default link coffeeStatement Statement
+
+syntax match coffeeRepeat /\<\%(for\|while\|until\|loop\)\>/
+highlight default link coffeeRepeat Repeat
+
+syntax match coffeeConditional /\<\%(if\|else\|unless\|switch\|when\|then\)\>/
+highlight default link coffeeConditional Conditional
+
+syntax match coffeeException /\<\%(try\|catch\|finally\)\>/
+highlight default link coffeeException Exception
+
+syntax match coffeeOperator /\<\%(instanceof\|typeof\|delete\)\>/
+highlight default link coffeeOperator Operator
+
+syntax match coffeeKeyword /\<\%(new\|in\|of\|by\|where\|and\|or\|not\|is\|isnt\|class\|extends\|super\|all\)\>/
+highlight default link coffeeKeyword Keyword
+
+syntax match coffeeBoolean /\<\%(\%(true\|on\|yes\|false\|off\|no\)\)\>/
+highlight default link coffeeBoolean Boolean
+
+syntax match coffeeGlobal /\<\%(null\|undefined\)\>/
+highlight default link coffeeGlobal Type
+
+syntax cluster coffeeReserved contains=coffeeStatement,coffeeRepeat,
+\                                      coffeeConditional,coffeeException,
+\                                      coffeeOperator,coffeeKeyword,
+\                                      coffeeBoolean,coffeeGlobal
+
+syntax match coffeeAssignmentMod /\%(\s\+\zs\%(and\|or\)\|\W\{,3}\)\ze=/ contained
+highlight default link coffeeAssignmentMod SpecialChar
+
+syntax match coffeeAssignmentChar /:\|=/ contained
+highlight default link coffeeAssignmentChar SpecialChar
+
+syntax match coffeeVar /\<\%(this\|prototype\|arguments\)\>/
+" Matches @-variables like @abc
+syntax match coffeeVar /@\%(\I\i*\)\?/
+highlight default link coffeeVar Type
+
+" Matches class-like names that start with a capital letter, like Array or
+" Object
+syntax match coffeeObject /\<\u\w*\>/
+highlight default link coffeeObject Structure
+
+" Matches constant-like names in SCREAMING_CAPS
+syntax match coffeeConstant /\<\u[A-Z0-9_]\+\>/
+highlight default link coffeeConstant Constant
+
+syntax match coffeePrototype /::/
+highlight default link coffeePrototype SpecialChar
+
+syntax region coffeeString start=/"/ skip=/\\\\\|\\"/ end=/"/ contains=@coffeeInterpString
+syntax region coffeeString start=/'/ skip=/\\\\\|\\'/ end=/'/ contains=@coffeeSimpleString
+highlight default link coffeeString String
+
+" What can make up a variable name
+syntax cluster coffeeIdentifier contains=coffeeVar,coffeeObject,coffeeConstant,
+\                                        coffeePrototype
+
+syntax match coffeeAssignment /@\?\I\%(\i\|::\|\.\|\[.\+\]\)*\s*\%(::\@!\|\%(and\|or\|\|&&\|||\|?\|+\|-\|\/\|\*\|%\|<<\|>>\|>>>\|&\||\|\^\)==\@!\)/
+\                             contains=@coffeeIdentifier,coffeeAssignmentMod,
+\                                       coffeeAssignmentChar,coffeeBrackets
+syntax match coffeeAssignment /\%("\|'\)[^'"]\+\%("\|'\)\s*:/ contains=coffeeString,
+\                                                                      coffeeAssignmentChar
+syntax match coffeeAssignment /\d*\%(\.\d\+\)\?\s*:/ contains=coffeeNumber,coffeeAssignmentChar
+highlight default link coffeeAssignment Identifier
+
+syntax match coffeeFunction /->\|=>/
+highlight default link coffeeFunction Function
+
+syntax keyword coffeeTodo TODO FIXME XXX contained
+highlight default link coffeeTodo Todo
+
+syntax match coffeeComment /#.*/ contains=@Spell,coffeeTodo
+syntax match coffeeComment /####\@!\_.\{-}###/ contains=@Spell,coffeeTodo
+highlight default link coffeeComment Comment
+
+syntax region coffeeEmbed start=/`/ end=/`/
+highlight default link coffeeEmbed Special
+
+" Matches numbers like -10, -10e8, -10E8, 10, 10e8, 10E8
+syntax match coffeeNumber /\<-\?\d\+\%([eE][+-]\?\d\+\)\?\>/
+" Matches hex numbers like 0xfff, 0x000
+syntax match coffeeNumber /\<0[xX]\x\+\>/
+highlight default link coffeeNumber Number
+
+" Matches floating-point numbers like -10.42e8, 10.42e-8
+syntax match coffeeFloat /-\?\d*\.\@<!\.\d\+\%([eE][+-]\?\d\+\)\?/
+highlight default link coffeeFloat Float
+
+syntax region coffeeInterpolation matchgroup=coffeeInterpDelim
+\                                 start=/\#{/ end=/}/
+\                                 contained contains=TOP
+highlight default link coffeeInterpDelim Delimiter
+
+syntax match coffeeEscape /\\\d\d\d\|\\x\x\{2\}\|\\u\x\{4\}\|\\./ contained
+highlight default link coffeeEscape SpecialChar
+
+syntax cluster coffeeSimpleString contains=@Spell,coffeeEscape
+syntax cluster coffeeInterpString contains=@coffeeSimpleString,
+\                                           coffeeInterpolation
+
+syntax region coffeeRegExp start=/\// end=/\/[gimy]\{,4}/ oneline
+\                          contains=@coffeeInterpString
+highlight default link coffeeRegExp String
+
+syntax region coffeeHeredoc start=/"""/ end=/"""/ contains=@coffeeInterpString
+syntax region coffeeHeredoc start=/'''/ end=/'''/ contains=@coffeeSimpleString
+highlight default link coffeeHeredoc String
+
+syntax region coffeeCurlies start=/{/ end=/}/ contains=TOP
+syntax region coffeeBrackets start=/\[/ end=/\]/ contains=TOP,coffeeAssignment
+syntax region coffeeParens start=/(/ end=/)/ contains=TOP
+
+" Displays an error for trailing whitespace
+if !exists("coffee_no_trailing_space_error")
+  syntax match coffeeSpaceError /\s\+$/ display
+  highlight default link coffeeSpaceError Error
 endif
+
+" Displays an error for trailing semicolons
+if !exists("coffee_no_trailing_semicolon_error")
+  syntax match coffeeSemicolonError /;$/ display
+  highlight default link coffeeSemicolonError Error
+endif
+
+" Displays an error for reserved words
+if !exists("coffee_no_reserved_words_error")
+  syntax keyword coffeeReservedError case default do function var void with const
+  \                                  let enum export import native __hasProp
+  \                                  __extends __slice
+  highlight default link coffeeReservedError Error
+endif
+
+" Reserved words can be used as dot-properties
+syntax match coffeeDot /\.\@<!\.\i\+/ transparent
+\                                     contains=ALLBUT,@coffeeReserved,
+\                                                      coffeeReservedError
