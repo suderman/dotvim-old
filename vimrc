@@ -67,6 +67,10 @@ colorscheme ir_black
 " \\ for \ as the leader character
 let mapleader = ","
 
+" Launch vimrc with ,v and automatically load changes on write
+autocmd bufwritepost .vimrc source $MYVIMRC
+nmap <leader>v ;tabedit $MYVIMRC<CR>
+
 " Space-w instead of Ctrl-w for window focus
 map <leader>w <C-w>
 
