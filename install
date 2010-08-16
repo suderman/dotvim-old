@@ -1,4 +1,11 @@
 #!/bin/sh
-ln -sfF ~/bin/dotvim ~/.vim
-ln -sfF ~/bin/dotvim/vimrc ~/.vimrc
-ln -sfF ~/bin/dotvim/gvimrc ~/.gvimrc
+# Assumes this all lives in ~/bin/dotvim 
+
+rm -f ~/.vim
+ln -s ~/bin/dotvim ~/.vim
+
+rm -f ~/.vimrc
+ln -s ~/bin/dotvim/vimrc ~/.vimrc
+
+rm -f ~/.gvimrc
+ln -s ~/bin/dotvim/gvimrc ~/.gvimrc
