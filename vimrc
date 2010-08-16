@@ -69,7 +69,7 @@ let mapleader = ","
 
 " Launch vimrc with ,v and automatically load changes on write
 autocmd bufwritepost .vimrc source $MYVIMRC
-nmap <leader>v ;tabedit $MYVIMRC<CR>
+nmap <leader>v :tabedit $MYVIMRC<CR>
 
 " Space-w instead of Ctrl-w for window focus
 map <leader>w <C-w>
@@ -81,23 +81,22 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " NERDTree shortcut Space-d 
-map <leader>d ;NERDTree<CR>
+map <leader>d :NERDTree<CR>
 
 " Tab mappings.
-map <leader>tn ;tabnew %<cr>
-map <leader>te ;tabedit
-map <leader>tc ;tabclose<cr>
-map <leader>tm ;tabmove
+map <leader>tn :tabnew %<cr>
+map <leader>te :tabedit
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
 
 " Uncomment to use Jamis Buck's file opening plugin
-map <leader>t ;FuzzyFinderTextMate<CR>
+map <leader>t :FuzzyFinderTextMate<CR>
 
 " Controversial...swap colon and semicolon for easier commands
-nnoremap ; :
-nnoremap : ;
-
-vnoremap ; :
-vnoremap : ;
+"nnoremap ; :
+"nnoremap : ;
+"vnoremap ; :
+"vnoremap : ;
 
 " Automatic fold settings for specific files. Uncomment to use.
 " autocmd FileType ruby setlocal foldmethod=syntax

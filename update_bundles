@@ -29,6 +29,7 @@ vim_org_scripts = [
   ["IndexedSearch", "7062",  "plugin"],
   ["gist",          "13427", "plugin"],
   ["jquery",        "12276", "syntax"],
+  ["minibufexpl",   "3640",  "plugin"],
 ]
 
 require 'fileutils'
