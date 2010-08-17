@@ -7,15 +7,13 @@
 # cd vim
 # git checkout -b vim73 origin/hg/vim73
 # cd src
-# ./configure --with-features=huge --enable-rubyinterp --enable-pythoninterp --enable-perlinterp --enable-cscope
+# ./configure --with-features=huge --enable-rubyinterp --enable-pythoninterp --enable-perlinterp --enable-cscope --with-global-runtime=/usr/local/share/vim/vim73
 # make
 
-# -- Copy vim and runtime to ~/bin directory
+# -- Copy vim to ~/bin and runtime to /usr/local/share
 # cp ./vim ~/bin
-# cp ../runtime ~bin/vim73
+# cp -r ../runtime /usr/local/share/vim/vim73
 
-# -- Add path to vimruntime to .zshrc
-# export VIMRUNTIME=~/bin/vim73
 
 rm -f ~/.vim
 ln -s ~/bin/dotvim ~/.vim
