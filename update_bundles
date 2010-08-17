@@ -22,7 +22,8 @@ git_bundles = [
   "git://github.com/vim-ruby/vim-ruby.git",
   "git://github.com/mileszs/ack.vim.git",
   "git://github.com/kchmck/vim-coffee-script.git",
-  "git://github.com/itspriddle/vim-fuzzyfinder-pathogen.git",
+  #"git://github.com/itspriddle/vim-fuzzyfinder-pathogen.git",
+  "git://github.com/wincent/Command-T",
 ]
 
 vim_org_scripts = [
@@ -57,3 +58,10 @@ vim_org_scripts.each do |name, script_id, script_type|
     file << open("http://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
   end
 end
+
+
+# Compile C extensions in Command T (http://github.com/wincent/Command-T)
+command_t_dir = '~/bin/dotvim/bundle/Command-T/ruby/command-t'
+puts `cd #{command_t_dir}; ruby extconf.rb; make`
+
+
