@@ -1,6 +1,22 @@
 #!/bin/sh
 # Assumes this all lives in ~/bin/dotvim 
 
+# -- Compiling vim --
+# cd ~/code
+# git clone git://github.com/b4winckler/vim.git
+# cd vim
+# git checkout -b vim73 origin/hg/vim73
+# cd src
+# ./configure --with-features=huge --enable-rubyinterp --enable-pythoninterp --enable-perlinterp --enable-cscope
+# make
+
+# -- Copy vim and runtime to ~/bin directory
+# cp ./vim ~/bin
+# cp ../runtime ~bin/vim73
+
+# -- Add path to vimruntime to .zshrc
+# export VIMRUNTIME=~/bin/vim73
+
 rm -f ~/.vim
 ln -s ~/bin/dotvim ~/.vim
 
