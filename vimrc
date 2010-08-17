@@ -89,8 +89,12 @@ map <leader>te :tabedit
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
+" Visual shifting (builtin-repeat)
+vnoremap < <gv
+vnoremap > >gv
+
 " Uncomment to use Jamis Buck's file opening plugin
-map <leader>t :FuzzyFinderTextMate<CR>
+"map <leader>t :FuzzyFinderTextMate<CR>
 
 " Controversial...swap colon and semicolon for easier commands
 "nnoremap ; :
