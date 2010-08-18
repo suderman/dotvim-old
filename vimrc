@@ -86,11 +86,15 @@ nmap <leader>k <C-W>k
 nmap <leader>h <C-W>h
 nmap <leader>l <C-W>l
 
-" Focus MiniBufExplorer tabs and cycle with tab (,Tab -> tab, tab, tab...)
+" Focus MiniBufExplorer tabs and cycle with comma-tab (,Tab -> tab, tab, tab...)
 nmap <leader><tab> :MiniBufExplorer<CR>
+
+" Alt-tab between buffers with comma-comma-tab (,,Tab)
+nmap <leader><leader><tab> <C-^>
 
 " NERDTree shortcut ,d 
 map <leader>d :NERDTreeToggle<CR>
+map <leader><leader>d :NERDTreeClose<CR>:NERDTreeFind<CR>
 
 " Tab mappings.
 map <leader>tn :tabnew %<CR>
