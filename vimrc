@@ -71,22 +71,31 @@ let mapleader = ","
 autocmd bufwritepost .vimrc source $MYVIMRC
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
-" Space-w instead of Ctrl-w for window focus
-map <leader>w <C-w>
+" ,w to save
+nmap <leader>w :w<CR>
 
-" Smart way to move btw. windows
+" Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" NERDTree shortcut Space-d 
-map <leader>d :NERDTree<CR>
+" Addtional ways to move between windows with ,
+nmap <leader>j <C-W>j
+nmap <leader>k <C-W>k
+nmap <leader>h <C-W>h
+nmap <leader>l <C-W>l
+
+" Focus MiniBufExplorer tabs and cycle with tab (,Tab -> tab, tab, tab...)
+nmap <leader><tab> :MiniBufExplorer<CR>
+
+" NERDTree shortcut ,d 
+map <leader>d :NERDTreeToggle<CR>
 
 " Tab mappings.
-map <leader>tn :tabnew %<cr>
+map <leader>tn :tabnew %<CR>
 map <leader>te :tabedit
-map <leader>tc :tabclose<cr>
+map <leader>tc :tabclose<CR>
 map <leader>tm :tabmove
 
 " Visual shifting (builtin-repeat)
