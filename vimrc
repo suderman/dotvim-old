@@ -74,6 +74,10 @@ nmap <leader>v :tabedit $MYVIMRC<CR>
 " ,w to save
 nmap <leader>w :w<CR>
 
+" ,q to quit (close window)
+nmap <leader>q :quit<CR>
+nmap <leader>qq :quitall<CR>
+
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -122,4 +126,6 @@ vnoremap > >gv
 " For the MakeGreen plugin and Ruby RSpec. Uncomment to use.
 autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 
-
+" Start new session with NERDTree opened
+autocmd VimEnter * NERDTreeFind
+autocmd VimEnter * wincmd p
