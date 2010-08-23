@@ -1,20 +1,32 @@
 #!/bin/sh
-# Assumes this all lives in ~/bin/dotvim 
+
+# -- Directories ---
+# cd
+# mkdir code
+# mkdir bin
 
 # -- Compiling vim --
 # cd ~/code
 # git clone git://github.com/b4winckler/vim.git
 # cd vim
-# git checkout -b vim73 origin/hg/vim73
+# git checkout -b vim72 origin/hg/vim72
 # cd src
-# ./configure --with-features=huge --enable-rubyinterp --enable-pythoninterp --enable-perlinterp --enable-cscope --with-global-runtime=/usr/local/share/vim/vim73
+# ./configure --with-features=huge --enable-rubyinterp --enable-pythoninterp --enable-perlinterp --enable-cscope --with-global-runtime=/usr/local/share/vim/vim72
 # make
 
-# -- Copy vim to ~/bin and runtime to /usr/local/share
+# -- Copy vim to ~/bin and runtime to /usr/local/share or ~/bin (if installing on server)
 # cp ./vim ~/bin
-# cp -r ../runtime /usr/local/share/vim/vim73
+# cp -r ../runtime /usr/local/share/vim/vim72 
+# -- or --
+# cp -r ../runtime ~/bin/vim72
+
+# -- Make sure your bashrc knows where your vim and vimruntime live 
+# export PATH=$HOME/bin:$PATH
+# export VIMRUNTIME=$HOME/bin/vim72
 
 
+
+# Assumes this all lives in ~/bin/dotvim 
 rm -f ~/.vim
 ln -s ~/bin/dotvim ~/.vim
 

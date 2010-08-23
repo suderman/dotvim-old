@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/Users/jon/code/anns.ca'
-let g:netrw_dirhist_2='/Users/jon'
-let g:netrw_dirhist_3='/Users/jon/Files'
-let g:netrw_dirhist_4='/Users/jon/Sites'
-let g:netrw_dirhist_5='/Users/jon/code/test'
-let g:netrw_dirhist_6='/Users/jon'
-let g:netrw_dirhist_7='/Users/jon/Downloads'
-let g:netrw_dirhist_8='/Users/jon/Desktop'
-let g:netrw_dirhist_9='/Users/jon/Desktop/Clutter'
+let g:netrw_dirhist_cnt =0
