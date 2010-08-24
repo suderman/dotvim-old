@@ -129,5 +129,5 @@ vnoremap > >gv
 autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 
 " Start new session with NERDTree opened
-autocmd VimEnter * NERDTreeFind
+autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
