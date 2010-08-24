@@ -123,3 +123,6 @@ autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 " Start new session with NERDTree opened
 " autocmd VimEnter * NERDTree
 " autocmd VimEnter * wincmd p
+
+" F5 will remove trailing whitespace and tabs
+nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
