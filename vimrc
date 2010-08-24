@@ -71,7 +71,7 @@ let mapleader = ","
 
 " Launch vimrc with ,v and automatically load changes on write
 autocmd bufwritepost .vimrc source $MYVIMRC
-nmap <leader>v :tabedit $MYVIMRC<CR>
+nmap <leader>v :edit $MYVIMRC<CR>
 
 " ,w to save
 nmap <leader>w :w<CR>
@@ -96,11 +96,12 @@ nmap <leader>l <C-W>l
 nmap <leader><tab> :MiniBufExplorer<CR>
 
 " Alt-tab between buffers with comma-comma-tab (,,Tab)
-nmap <leader><leader><tab> <C-^>
+nmap <leader>6 <C-^>
+nmap <leader>^ <C-^>
 
 " NERDTree shortcut ,d 
 map <leader>d :NERDTreeToggle<CR>
-map <leader><leader>d :NERDTreeClose<CR>:NERDTreeFind<CR>
+map <leader>dd :NERDTreeClose<CR>:NERDTreeFind<CR>
 
 " Tab mappings.
 map <leader>tn :tabnew %<CR>
@@ -112,15 +113,6 @@ map <leader>tm :tabmove
 vnoremap < <gv
 vnoremap > >gv
 
-" Uncomment to use Jamis Buck's file opening plugin
-"map <leader>t :FuzzyFinderTextMate<CR>
-
-" Controversial...swap colon and semicolon for easier commands
-"nnoremap ; :
-"nnoremap : ;
-"vnoremap ; :
-"vnoremap : ;
-
 " Automatic fold settings for specific files. Uncomment to use.
 " autocmd FileType ruby setlocal foldmethod=syntax
 " autocmd FileType css  setlocal foldmethod=indent shiftwidth=2 tabstop=2
@@ -129,5 +121,5 @@ vnoremap > >gv
 autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 
 " Start new session with NERDTree opened
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
+" autocmd VimEnter * NERDTree
+" autocmd VimEnter * wincmd p
