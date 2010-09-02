@@ -40,6 +40,8 @@ set title                         " Set the terminal's title
 
 set visualbell                    " No beeping.
 
+set timeoutlen=500                " Wait half-second for additional keys
+
 set nobackup                      " Don't make a backup before overwriting a file.
 set nowritebackup                 " And again.
 set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
@@ -85,22 +87,22 @@ nmap <leader>wq :wq<CR>
 nmap <leader>qw :wq<CR>
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
 
-" Move window with leader
+" Resize windows (same as moving between windows, but down directional key)
+noremap <C-j><C-j> <C-W>+
+noremap <C-k><C-k> <C-W>-
+noremap <C-h><C-h> <C-W><
+noremap <C-l><C-l> <C-W>>
+
+" Actually move current window
 nmap <leader>j <C-W><S-j>
 nmap <leader>k <C-W><S-k>
 nmap <leader>h <C-W><S-h>
 nmap <leader>l <C-W><S-l>
-
-" Resize windows (left, down, up, right)
-map <silent> <F7> <C-W><
-map <silent> <F8> <C-W>+
-map <silent> <F9> <C-W>-
-map <silent> <F10> <C-W>>
 
 " 0 is beginning of line, so make - the end of the line
 nmap - $
