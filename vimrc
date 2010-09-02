@@ -86,11 +86,27 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Addtional ways to move between windows with ,
-nmap <leader>j <C-W>j
-nmap <leader>k <C-W>k
-nmap <leader>h <C-W>h
-nmap <leader>l <C-W>l
+" Move window with leader
+nmap <leader>j <C-W><S-j>
+nmap <leader>k <C-W><S-k>
+nmap <leader>h <C-W><S-h>
+nmap <leader>l <C-W><S-l>
+
+" Resize windows (left, down, up, right)
+map <silent> <F7> <C-W><
+map <silent> <F8> <C-W>-
+map <silent> <F9> <C-W>+
+map <silent> <F10> <C-W>>
+
+" 0 is beginning of line, so make - the end of the line
+nmap - $
+
+" u is undo, so make ctrl-u redo
+nmap <C-u> <C-R>
+
+" Visual mode insert and after, make lower-case work
+vmap i <S-i>
+vmap a <S-a>
 
 " Focus MiniBufExplorer tabs and cycle with comma-tab (,Tab -> tab, tab, tab...)
 nmap <leader><tab> :MiniBufExplorer<CR>
