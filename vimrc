@@ -66,7 +66,7 @@ endif
 " Or use vividchalk, molakai, github
 colorscheme ir_black
 
-" \\ for \ as the leader character
+" Comma is the leader character
 let mapleader = ","
 
 " Launch vimrc with ,v and automatically load changes on write
@@ -79,6 +79,10 @@ nmap <leader>w :w<CR>
 " ,q to quit (close window)
 nmap <leader>q :quit<CR>
 nmap <leader>qq :quitall<CR>
+
+" ,wq or ,qw to write and quit
+nmap <leader>wq :wq<CR>
+nmap <leader>qw :wq<CR>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
