@@ -94,8 +94,8 @@ nmap <leader>l <C-W><S-l>
 
 " Resize windows (left, down, up, right)
 map <silent> <F7> <C-W><
-map <silent> <F8> <C-W>-
-map <silent> <F9> <C-W>+
+map <silent> <F8> <C-W>+
+map <silent> <F9> <C-W>-
 map <silent> <F10> <C-W>>
 
 " 0 is beginning of line, so make - the end of the line
