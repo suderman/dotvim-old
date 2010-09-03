@@ -69,22 +69,39 @@ If your Vim lacks support you'll see an error message like this:
 The version of Vim distributed with Mac OS X does not include Ruby support,
 while MacVim does; it is available from:
 
-  http://code.google.com/p/macvim/
+  http://github.com/b4winckler/macvim/downloads
 
-For Windows users, the executable from www.vim.org does include Ruby support.
+For Windows users, it appears that the executable from www.vim.org does not
+include Ruby support, but the Cream project does maintain a "Windows Vim
+installer without Cream" which has Ruby support:
+
+  http://sourceforge.net/projects/cream/files/Vim
+
+At the time of writing the latest version is the gvim-7-3-3.exe "gVim
+one-click installer for Windows".
 
 2. Ruby
 
 In addition to having Ruby support in Vim, your system itself must have a
-compatible Ruby install. In practice this usually means a version of Ruby from
-the 1.8 series, as Vim's support for 1.9 is still not official.
+compatible Ruby install. "Compatible" means the same version as Vim itself
+links against. If you use a different version then Command-T is unlikely
+to work (see TROUBLE-SHOOTING below).
 
-The current version of Mac OS X comes with Ruby 1.8.7.
+On Mac OS X Snow Leopard, the system comes with Ruby 1.8.7 and all recent
+versions of MacVim (the 7.2 snapshots and 7.3) are linked against it.
 
-A suitable Ruby environment for Windows can be installed using RubyInstaller
-available at:
+On Linux and similar platforms, the linked version of Ruby will depend on
+your distribution. You can usually find this out by examining the
+compilation and linking flags displayed by the |:version| command in Vim, and
+by looking at the output of:
 
-  http://rubyinstaller.org/download.html
+  :ruby puts RUBY_VERSION
+
+On Windows, the Vim 7.3 installer provided by the Cream project links against
+Ruby 1.8.7. A suitable Ruby environment for Windows can be installed using
+the Ruby 1.8.7 RubyInstaller available at:
+
+  http://rubyinstaller.org/downloads/
 
 If using RubyInstaller be sure to download the installer executable, not the
 7-zip archive. When installing mark the checkbox "Add Ruby executables to your
@@ -103,7 +120,10 @@ the Mac OS X install disc.
 On Windows, the RubyInstaller Development Kit can be used to conveniently
 install the necessary tool chain:
 
-  http://wiki.github.com/oneclick/rubyinstaller/development-kit
+  http://rubyinstaller.org/downloads/
+
+At the time of writing, the appropriate development kit for use with Ruby
+1.8.7 is DevKit-3.4.5-20100819-1535-sfx.exe.
 
 To use the Development Kit extract the archive contents to your C:\Ruby
 folder.
@@ -190,15 +210,17 @@ linked against at compile time. For example, if one is 32-bit and the other is
 series, then the plug-in is not likely to work.
 
 As such, on Mac OS X, I recommend using the standard Ruby that comes with the
-system (currently 1.8.7) along with the latest snapshot of MacVim (currently
-snapshot 52). If you wish to use custom builds of Ruby or of MacVim (not
+system (currently 1.8.7) along with the latest version of MacVim (currently
+version 7.3). If you wish to use custom builds of Ruby or of MacVim (not
 recommmended) then you will have to take extra care to ensure that the exact
 same Ruby environment is in effect when building Ruby, Vim and the Command-T
 extension.
 
-On Windows, I recommend using the version 1.8.7 RubyInstaller and the
+On Windows, I recommend using the version 1.9.1 RubyInstaller and the
 corresponding RubyInstaller Development Kit linked to above, along with the
-standard (32-bit) version of Vim that can be downloaded from www.vim.org.
+standard (32-bit) version of Vim 7.3 that can be downloaded from www.vim.org.
+If you are still using Vim 7.2 then you should instead use version 1.8.7 of
+RubyInstaller.
 
 If a problem occurs the first thing you should do is inspect the output of:
 
@@ -596,12 +618,19 @@ POSSIBILITY OF SUCH DAMAGE.
 
 HISTORY                                         *command-t-history*
 
-0.8 (not yet released)
+0.8 (19 August 2010)
 
 - overrides for the default mappings can now be lists of strings, allowing
   multiple mappings to be defined for any given action
 - <Leader>t mapping only set up if no other map for |:CommandT| exists
   (patch from Scott Bronson)
+- prevent folds from appearing in the match listing
+- tweaks to avoid the likelihood of "Not enough room" errors when trying to
+  open files
+- watch out for "nil" windows when restoring window dimensions
+- optimizations (avoid some repeated downcasing)
+- move all Ruby files under the "command-t" subdirectory and avoid polluting
+  the "Vim" module namespace
 
 0.8b (11 July 2010)
 

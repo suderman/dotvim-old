@@ -1,6 +1,5 @@
 " *** Creating instances (start)
 
-" Initialize RUbyDebugger settings
 if !exists("g:ruby_debugger_fast_sender")
   let g:ruby_debugger_fast_sender = 0
 endif
@@ -27,7 +26,4 @@ let s:variables_window.logger = RubyDebugger.logger
 let s:breakpoints_window.logger = RubyDebugger.logger
 let s:frames_window.logger = RubyDebugger.logger
 
-
 " *** Creating instances (end)
-
-

@@ -53,6 +53,7 @@ set expandtab                    " Use spaces instead of tabs
 set list listchars=tab:»·,trail:·" Display extra whitespace
 
 set laststatus=2                  " Show the status line all the time
+nmap <C-q> :quit
 
 " Useful status information at bottom of screen
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
@@ -86,17 +87,17 @@ nmap <leader>qq :quitall<CR>
 nmap <leader>wq :wq<CR>
 nmap <leader>qw :wq<CR>
 
-" Smart way to move between windows
-noremap <C-j> <C-W>j
-noremap <C-k> <C-W>k
-noremap <C-h> <C-W>h
-noremap <C-l> <C-W>l
+" Smart way to move between windows. Ctrl-[h,j,k,l]
+nmap <C-j> <C-W>j
+nmap <C-k> <C-W>k
+nmap <C-h> <C-W>h
+nmap <C-l> <C-W>l
 
-" Resize windows (same as moving between windows, but down directional key)
-noremap <C-j><C-j> <C-W>+
-noremap <C-k><C-k> <C-W>-
-noremap <C-h><C-h> <C-W><
-noremap <C-l><C-l> <C-W>>
+" If in Visual Mode, resize window instead of changing focus. Ctrl-[h,j,k,l] 
+vmap <C-j> <C-W>+
+vmap <C-k> <C-W>-
+vmap <C-h> <C-W><
+vmap <C-l> <C-W>>
 
 " Actually move current window
 nmap <leader>j <C-W><S-j>
@@ -113,6 +114,17 @@ nmap <C-u> <C-R>
 " Visual mode insert and after, make lower-case work
 vmap i <S-i>
 vmap a <S-a>
+
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<CR>
+" Move to the next misspelled word
+map <leader>sn ]s
+" Move to the previous misspelled word
+map <leader>sp [s
+" Add word to dictionary
+map <leader>sa zg
+" View spelling suggestions for misspelled word
+map <leader>s? z=
 
 " Focus MiniBufExplorer tabs and cycle with comma-tab (,Tab -> tab, tab, tab...)
 nmap <leader><tab> :MiniBufExplorer<CR>
@@ -135,6 +147,9 @@ map <leader>tm :tabmove
 vnoremap < <gv
 vnoremap > >gv
 
+" F5 will remove trailing whitespace and tabs
+nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
+
 " Automatic fold settings for specific files. Uncomment to use.
 " autocmd FileType ruby setlocal foldmethod=syntax
 " autocmd FileType css  setlocal foldmethod=indent shiftwidth=2 tabstop=2
@@ -145,6 +160,3 @@ autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 " Start new session with NERDTree opened
 " autocmd VimEnter * NERDTree
 " autocmd VimEnter * wincmd p
-
-" F5 will remove trailing whitespace and tabs
-nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
