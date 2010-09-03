@@ -22,8 +22,8 @@ git_bundles = [
   "git://github.com/vim-ruby/vim-ruby.git",
   "git://github.com/mileszs/ack.vim.git",
   "git://github.com/kchmck/vim-coffee-script.git",
-  #"git://github.com/itspriddle/vim-fuzzyfinder-pathogen.git",
   "git://github.com/wincent/Command-T",
+  # "git://github.com/mattn/zencoding-vim.git",
 ]
 
 vim_org_scripts = [
