@@ -147,6 +147,15 @@ map <leader>tm :tabmove
 vnoremap < <gv
 vnoremap > >gv
 
+" Location of the sparkup executable. Seems to finding it in the same dir as the vim script.
+let g:sparkup = 'sparkup'
+" Additional args passed to sparkup.
+let g:sparkupArgs = '--no-last-newline'
+" Mapping used to execute sparkup.
+let g:sparkupExecuteMapping = '<c-e>'
+" Mapping used to jump to the next empty tag/attribute.
+let g:sparkupNextMapping = '<c-n>'
+
 " F5 will remove trailing whitespace and tabs
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
 
@@ -160,3 +169,5 @@ autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 " Start new session with NERDTree opened
 " autocmd VimEnter * NERDTree
 " autocmd VimEnter * wincmd p
+
+

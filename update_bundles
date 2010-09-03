@@ -24,6 +24,7 @@ git_bundles = [
   "git://github.com/kchmck/vim-coffee-script.git",
   "git://github.com/wincent/Command-T",
   # "git://github.com/mattn/zencoding-vim.git",
+  "git://github.com/sophacles/vim-bundle-sparkup.git",
 ]
 
 vim_org_scripts = [
