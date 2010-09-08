@@ -69,6 +69,10 @@ endif
 " Or use vividchalk, molakai, github
 colorscheme ir_black
 
+" When pasting from OS's clipboard, hit F2, Command-V, then F2 again 
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+
 " Comma is the leader character
 let mapleader = ","
 
