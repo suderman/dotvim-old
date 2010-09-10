@@ -157,8 +157,8 @@ let g:sparkup = 'sparkup'
 let g:sparkupArgs = '--no-last-newline'
 " Mapping used to execute sparkup.
 let g:sparkupExecuteMapping = '<c-e>'
-" Mapping used to jump to the next empty tag/attribute.
-let g:sparkupNextMapping = '<c-n>'
+" Mapping used to jump to the next empty tag/attribute (leaving this as <c-n> breaks tab-completion)
+let g:sparkupNextMapping = '<c-x>'
 
 " F5 will remove trailing whitespace and tabs
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
