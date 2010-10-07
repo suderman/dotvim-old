@@ -120,8 +120,8 @@ vmap i <S-i>
 vmap a <S-a>
 
 " Bubble multiple lines (unimpaired.vim)
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
+vmap _ ]egv
+vmap + [egv
 
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
