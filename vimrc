@@ -69,7 +69,7 @@ endif
 " Or use vividchalk, molakai, github
 colorscheme ir_black
 
-" When pasting from OS's clipboard, hit F2, Command-V, then F2 again 
+" When pasting from OS's clipboard, hit F2, Command-V, then F2 again
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 
@@ -118,6 +118,13 @@ nmap <C-u> <C-R>
 " Visual mode insert and after, make lower-case work
 vmap i <S-i>
 vmap a <S-a>
+
+" Bubble multiple lines (unimpaired.vim)
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+
+" Visually select the text that was last edited/pasted
+nmap gV `[v`]
 
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<CR>
