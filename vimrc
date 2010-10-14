@@ -1,4 +1,4 @@
-" Vim resources:
+﻿" Vim resources:
 " http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 " http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
 
@@ -8,6 +8,9 @@ filetype off                      " Needed on some linux distros.
 
 silent! call pathogen#helptags() 
 silent! call pathogen#runtime_append_all_bundles()
+
+set encoding=utf-8                " Set encoding to UTF-8.
+set bomb                          " Tell vim to store the encoding signature
 
 syntax enable                     " Turn on syntax highlighting.
 filetype plugin indent on         " Turn on file type detection.
