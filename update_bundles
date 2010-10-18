@@ -26,6 +26,8 @@ git_bundles = [
   # "git://github.com/mattn/zencoding-vim.git",
   "git://github.com/sophacles/vim-bundle-sparkup.git",
   "git://github.com/tpope/vim-unimpaired.git",
+  "git://github.com/chrismetcalf/vim-yankring.git",
+  # "git://github.com/Soares/vim-rainbow.git",
 ]
 
 vim_org_scripts = [

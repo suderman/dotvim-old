@@ -76,6 +76,10 @@ colorscheme ir_black
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 
+" Yank-ring shortcut
+nnoremap <silent> <F3> :YRShow<cr>
+inoremap <silent> <F3> <ESC>:YRShow<cr>
+
 " Comma is the leader character
 let mapleader = ","
 
@@ -139,6 +143,12 @@ map <leader>sp [s
 map <leader>sa zg
 " View spelling suggestions for misspelled word
 map <leader>s? z=
+
+" Ack with comma-a
+nnoremap <leader>a :Ack 
+
+" Clear search with comma-space
+nnoremap <leader><space> :noh<cr>
 
 " Focus MiniBufExplorer tabs and cycle with comma-tab (,Tab -> tab, tab, tab...)
 nmap <leader><tab> :MiniBufExplorer<CR>
