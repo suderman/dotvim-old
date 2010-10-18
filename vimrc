@@ -79,6 +79,7 @@ set pastetoggle=<F2>
 " Yank-ring shortcut
 nnoremap <silent> <F3> :YRShow<cr>
 inoremap <silent> <F3> <ESC>:YRShow<cr>
+let g:yankring_history_file = '.yankring_history'
 
 " Comma is the leader character
 let mapleader = ","
