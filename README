@@ -3,12 +3,12 @@
 
 Select shortcuts for my own memory's sake! 
 
-F2        toggles paste mode
-F3        toggles yankring
-F5        clean up whitespace
+<esc>     normal mode
+i         insert mode before (I beginning of line)
+a         insert mode after (A end of line)
 
 v         visual mode
-<s>v      visual line mode
+V         visual line mode
 <c>v      visual block mode
 
 gv        reselect the text from the last visual mode
@@ -20,6 +20,8 @@ u         undo
 y         yank
 d         delete
 p         paste (<c>p to cycle history)
+,p        toggle clipboard (yankring)
+,P        toggle paste mode (pasting from GUI clipboard)
 
 <c>[jkhl] move focus between windows
 <c>[jkhl] resize windows (visual mode)
@@ -45,5 +47,7 @@ gcc       toggle comments
 ,q        quit (also <c>q)
 ,qq       quitall
 ,wq       write and quit
+
+F5        clean up whitespace
 
 ,v        open the vimrc

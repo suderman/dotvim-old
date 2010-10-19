@@ -67,17 +67,17 @@ set wildignore+=*.o,*.obj,*.pyc,*.DS_STORE,*.db,*.swc,*.tar,*.tgz,.git,public_ht
 " Or use vividchalk, molakai, github
 colorscheme ir_black
 
-" When pasting from OS's clipboard, hit F2, Command-V, then F2 again
-nnoremap <F2> :set invpaste paste?<CR>
-set pastetoggle=<F2>
-
-" Yank-ring shortcut
-nnoremap <silent> <F3> :YRShow<cr>
-inoremap <silent> <F3> <ESC>:YRShow<cr>
-let g:yankring_history_file = '.yankring_history'
-
 " Comma is the leader character
 let mapleader = ","
+
+" When pasting from OS's clipboard, hit ,P command-v ,P
+nnoremap <leader>P :set invpaste paste?<CR>
+set pastetoggle=<leader>P
+
+" Yank-ring shortcut
+nnoremap <silent> <leader>p :YRShow<cr>
+inoremap <silent> <leader>p <ESC>:YRShow<cr>
+let g:yankring_history_file = '.yankring_history'
 
 " Launch vimrc with ,v and automatically load changes on write
 autocmd bufwritepost .vimrc source $MYVIMRC
