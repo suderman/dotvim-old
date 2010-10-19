@@ -56,18 +56,13 @@ set expandtab                    " Use spaces instead of tabs
 set list listchars=tab:»·,trail:·" Display extra whitespace
 
 set laststatus=2                  " Show the status line all the time
-nmap <C-q> :quit
+nmap <C-q> :quit<CR>
 
 " Useful status information at bottom of screen
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 
 " Ignore certian filetypes and directories
 set wildignore+=*.o,*.obj,*.pyc,*.DS_STORE,*.db,*.swc,*.tar,*.tgz,.git,public_html/images/**,public_html/upload/**,var/**,*/uploads/**,*/pear/**
-
-" Use Ack instead of Grep when available
-if executable("ack")
-  set grepprg=ack\ -H\ --nogroup\ --nocolor
-endif
 
 " Or use vividchalk, molakai, github
 colorscheme ir_black
@@ -145,8 +140,12 @@ map <leader>sa zg
 " View spelling suggestions for misspelled word
 map <leader>s? z=
 
-" Ack with comma-a
-nnoremap <leader>a :Ack 
+
+" Use Ack instead of Grep when available
+if executable("ack")
+  set grepprg=ack\ -H\ --nogroup\ --nocolor
+  nnoremap <leader>a :Ack 
+endif
 
 " Clear search with comma-space
 nnoremap <leader><space> :noh<cr>
