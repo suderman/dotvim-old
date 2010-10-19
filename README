@@ -3,31 +3,47 @@
 
 Select shortcuts for my own memory's sake! 
 
-F3        toggles paste mode
+F2        toggles paste mode
 F3        toggles yankring
 F5        clean up whitespace
 
+v         visual mode
+<s>v      visual line mode
+<c>v      visual block mode
+
+gv        reselect the text from the last visual mode
+gV        select the text that was last edited/pasted
+
 u         undo
-<C>u      redo
+<c>u      redo
 
 y         yank
 d         delete
-p         paste
-<C>p      cycle paste history
+p         paste (<c>p to cycle history)
 
-<C>[jkhl] move focus between windows
-<C>[jkhl] resize windows (visual mode)
-,jkhl     move windows
+<c>[jkhl] move focus between windows
+<c>[jkhl] resize windows (visual mode)
+,[jkhl]   move windows
 
-_+        bubble text (visual mode)
-gcc       toggle comments
+[_+]      bubble lines up/down (visual mode)
 [><]      indent, outdent (visual mode)
+gcc       toggle comments
+=         auto format
 
-,<tab>    cycle buffers (,tab -> tab, tab, tab...)
+/.../     search in file (n to cycle results; ,<space> to clear highlights)
+,a        search in project (Ack)
+,t        search file names (<c>c to cancel)
+
+,<tab>    cycle buffers (<tab> to cycle buffers; <s-tab> to cycle reverse)
 ,6        alt file
-,d        toggle project drawer
+,d        toggle project drawer (,dd to find current file in tree)
+
+,ss       toggle spellcheck
+,s?       list spelling suggestions
 
 ,w        write
-,q        quit
+,q        quit (also <c>q)
 ,qq       quitall
 ,wq       write and quit
+
+,v        open the vimrc
