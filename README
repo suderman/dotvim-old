@@ -3,40 +3,40 @@
 
 Select shortcuts for my own memory's sake! 
 
-<esc>     normal mode
+⎋         normal mode
 i         insert mode before (I beginning of line)
 a         insert mode after (A end of line)
 
 v         visual mode
 V         visual line mode
-<c>v      visual block mode
+⌃v        visual block mode
 
 gv        reselect the text from the last visual mode
 gV        select the text that was last edited/pasted
 
 u         undo
-<c>u      redo
+^u        redo
 
 y         yank
 d         delete
-p         paste (<c>p to cycle history)
-,p        toggle clipboard (yankring)
-,P        toggle paste mode (pasting from GUI clipboard)
+p         paste (⌃p to cycle history)
+[p        toggle clipboard (yankring)
+,p        toggle paste mode (pasting from GUI clipboard)
 
-<c>[jkhl] move focus between windows
-<c>[jkhl] resize windows (visual mode)
-,[jkhl]   move windows
+⌃jkhl     move focus between windows
+⌃jkhl     resize windows (visual mode)
+,jkhl     move windows
 
-[_+]      bubble lines up/down (visual mode)
-[><]      indent, outdent (visual mode)
+_+        bubble lines up/down (visual mode)
+><        indent, outdent (visual mode)
 gcc       toggle comments
 =         auto format
 
 /.../     search in file (n to cycle results; ,<space> to clear highlights)
 ,a        search in project (Ack)
-,t        search file names (<c>c to cancel)
+,t        search file names (⌃c to cancel)
 
-,<tab>    cycle buffers (<tab> to cycle buffers; <s-tab> to cycle reverse)
+,<tab>    cycle buffers (<tab> to cycle buffers; ⇧<tab> to cycle reverse)
 ,6        alt file
 ,d        toggle project drawer (,dd to find current file in tree)
 
@@ -44,7 +44,7 @@ gcc       toggle comments
 ,s?       list spelling suggestions
 
 ,w        write
-,q        quit (also <c>q)
+,q        quit
 ,qq       quitall
 ,wq       write and quit
 

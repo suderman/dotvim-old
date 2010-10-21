@@ -71,12 +71,12 @@ colorscheme ir_black
 let mapleader = ","
 
 " When pasting from OS's clipboard, hit ,P command-v ,P
-nnoremap <leader>P :set invpaste paste?<CR>
-set pastetoggle=<leader>P
+nnoremap <leader>p :set invpaste paste?<CR>
+set pastetoggle=<leader>p
 
 " Yank-ring shortcut
-nnoremap <silent> <leader>p :YRShow<cr>
-inoremap <silent> <leader>p <ESC>:YRShow<cr>
+nnoremap <silent> [p :YRShow<cr>
+inoremap <silent> [p <ESC>:YRShow<cr>
 let g:yankring_history_file = '.yankring_history'
 
 " Launch vimrc with ,v and automatically load changes on write
