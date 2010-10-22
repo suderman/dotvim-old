@@ -28,6 +28,7 @@ git_bundles = [
   "git://github.com/tpope/vim-unimpaired.git",
   "git://github.com/chrismetcalf/vim-yankring.git",
   # "git://github.com/Soares/vim-rainbow.git",
+  "git://github.com/vim-scripts/closetag.vim.git",
 ]
 
 vim_org_scripts = [

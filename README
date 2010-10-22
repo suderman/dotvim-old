@@ -32,6 +32,8 @@ _+        bubble lines up/down (visual mode)
 gcc       toggle comments
 =         auto format
 
+^_        close last HTML tag
+
 /.../     search in file (n to cycle results; ,<space> to clear highlights)
 ,a        search in project (Ack)
 ,t        search file names (⌃c to cancel)
